@@ -7,19 +7,24 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <div class="clock">
+    <div class="clock" id="clock">
       <div class="clock-face">
         <div class="hand" id="hour"></div>
         <div class="hand" id="min"></div>
         <div class="hand" id="sec"></div>
+        <div id="clock-crack"></div>
       </div>
-      <audio src="clock-tick.mp3"></audio>
-      <script defer>
-        const secHand = document.getElementById("sec");
-        const minHand = document.getElementById("min");
-        const hourHand = document.getElementById("hour");
-        const audio = document.querySelector("audio");
-        const setTime = () => {
+    </div>
+    <audio src="clock-tick.mp3"></audio>
+    <audio id="crackAudio" src="glass-break.mp3"></audio>
+    <script defer>
+      const secHand = document.getElementById("sec");
+      const minHand = document.getElementById("min");
+      const hourHand = document.getElementById("hour");
+      const audio = document.querySelector("audio");
+      let gravityEnabled = false;
+      const setTime = () => {
+        if (!gravityEnabled) {
           const now = new Date();
           const second = now.getSeconds();
           const minute = now.getMinutes();
@@ -32,9 +37,39 @@
           secHand.style.transform = `rotate(${secondDegrees}deg)`;
           minHand.style.transform = `rotate(${minDegrees}deg)`;
           hourHand.style.transform = `rotate(${hourDegrees}deg)`;
-        };
-        setInterval(setTime, 1000);
-      </script>
-    </div>
+        } else applyGravity();
+      };
+
+      setInterval(setTime, 1000);
+
+      // feature to make crack appear when clock is clicked.
+      const clock = document.getElementById("clock");
+      const clockCrack = document.getElementById("clock-crack");
+      const crackAudio = document.getElementById("crackAudio");
+      let clickCount = 0;
+
+      const handleClick = () => {
+        clickCount++;
+        if (clickCount == 3) {
+          clockCrack.style.display = "block";
+          crackAudio.play();
+          gravityEnabled = !gravityEnabled;
+        }
+      };
+
+      const applyGravity = () => {
+        secHand.style.transform = "rotate(270deg)";
+        minHand.style.transform = "rotate(270deg)";
+        hourHand.style.transform = "rotate(270deg)";
+        secHand.style.transition =
+          "transform 2s cubic-bezier(.68,.15,.47,1.25)";
+        minHand.style.transition =
+          "transform 2s cubic-bezier(.68,.15,.47,1.25)";
+        hourHand.style.transition =
+          "transform 2s cubic-bezier(.68,.15,.47,1.25)";
+      };
+
+      clock.addEventListener("click", handleClick);
+    </script>
   </body>
 </html>
