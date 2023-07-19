@@ -1,6 +1,7 @@
 html {
-  background: #018ded url(https://unsplash.it/1500/1000?image=881&blur=5);
+  background: url("background.jpg");
   background-size: cover;
+  background-repeat: no-repeat;
   font-family: "helvetica neue";
   text-align: center;
   font-size: 10px;
@@ -22,8 +23,32 @@ body {
   margin: 50px auto;
   position: relative;
   padding: 2rem;
+  cursor: pointer;
   box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.1), inset 0 0 0 3px #efefef,
     inset 0 0 10px black, 0 0 10px rgba(0, 0, 0, 0.2);
+  animation: 0.1s linear;
+  animation-iteration-count: 3;
+}
+.clock.shaking {
+  animation-name: shake;
+}
+
+@keyframes shake {
+  0% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-5px);
+  }
+  50% {
+    transform: translateX(5px);
+  }
+  75% {
+    transform: translateX(-5px);
+  }
+  100% {
+    transform: translateX(0);
+  }
 }
 .clock-face {
   position: relative;
@@ -35,7 +60,7 @@ body {
 .hand {
   width: 50%;
   height: 6px;
-  background: black;
+  background: red;
   position: absolute;
   top: 50%;
   transform-origin: 100%;
@@ -46,7 +71,7 @@ body {
 
 #sec {
   width: 30%;
-  background-color: red;
+  background-color: white;
   left: 20%;
 }
 
@@ -54,4 +79,31 @@ body {
   width: 40%;
   background-color: blue;
   left: 10%;
+}
+
+#clock-crack {
+  background-image: url("crack.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  width: 400px;
+  height: 150px;
+  position: absolute;
+  top: 150px;
+  left: 100px;
+  z-index: 999;
+  display: none;
+}
+
+@media (max-width: 600px) {
+  .clock {
+    width: 20rem;
+    height: 20rem;
+  }
+
+  #clock-crack {
+    width: 300px;
+    height: 100px;
+    top: 100px;
+    left: 50px;
+  }
 }
