@@ -1,5 +1,5 @@
 html {
-  background: url("background.jpg");
+  background: url("assets/background.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   font-family: "helvetica neue";
@@ -82,7 +82,7 @@ body {
 }
 
 #clock-crack {
-  background-image: url("crack.png");
+  background-image: url("assets/crack.png");
   background-repeat: no-repeat;
   background-size: contain;
   width: 400px;
