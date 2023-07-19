@@ -50,6 +50,8 @@
 
       const handleClick = () => {
         clickCount++;
+        setTimeout;
+        clock.classList.add("shaking");
         if (clickCount == 3) {
           clockCrack.style.display = "block";
           crackAudio.play();
@@ -57,18 +59,24 @@
         }
       };
 
+      const handleAnimationEnd = () => {
+        if (gravityEnabled) return;
+        clock.classList.remove("shaking");
+      };
+
       const applyGravity = () => {
         secHand.style.transform = "rotate(270deg)";
         minHand.style.transform = "rotate(270deg)";
         hourHand.style.transform = "rotate(270deg)";
         secHand.style.transition =
-          "transform 2s cubic-bezier(.68,.15,.47,1.25)";
+          "transform 2s cubic-bezier(.68,.15,.47,1.80)";
         minHand.style.transition =
-          "transform 2s cubic-bezier(.68,.15,.47,1.25)";
+          "transform 2s cubic-bezier(.68,.15,.47,1.80)";
         hourHand.style.transition =
-          "transform 2s cubic-bezier(.68,.15,.47,1.25)";
+          "transform 2s cubic-bezier(.68,.15,.47,1.80)";
       };
 
+      clock.addEventListener("animationend", handleAnimationEnd);
       clock.addEventListener("click", handleClick);
     </script>
   </body>
